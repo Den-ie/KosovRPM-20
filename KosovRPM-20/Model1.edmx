@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище FactoryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DetailDirectory">
+          <Key>
+            <PropertyRef Name="DetailCode" />
+          </Key>
+          <Property Name="DetailCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DetailName" Type="nchar" MaxLength="10" />
+          <Property Name="Cost" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductCompound">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+            <PropertyRef Name="DetailCode" />
+          </Key>
+          <Property Name="ProductCode" Type="int" Nullable="false" />
+          <Property Name="DetailCode" Type="int" Nullable="false" />
+          <Property Name="DetailCount" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductDirectory">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+          </Key>
+          <Property Name="ProductCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nchar" MaxLength="10" />
+          <Property Name="MakeCost" Type="int" />
+        </EntityType>
+        <EntityType Name="ReleasePlan">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+          </Key>
+          <Property Name="ProductCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductCount" Type="int" />
+          <Property Name="WorkshopCode" Type="int" />
+        </EntityType>
+        <EntityType Name="Workshop">
+          <Key>
+            <PropertyRef Name="WorkshopCode" />
+          </Key>
+          <Property Name="WorkshopCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorkshopName" Type="nchar" MaxLength="10" />
+          <Property Name="Boss" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_ProductCompound_DetailDirectory">
+          <End Role="DetailDirectory" Type="Self.DetailDirectory" Multiplicity="1" />
+          <End Role="ProductCompound" Type="Self.ProductCompound" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DetailDirectory">
+              <PropertyRef Name="DetailCode" />
+            </Principal>
+            <Dependent Role="ProductCompound">
+              <PropertyRef Name="DetailCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCompound_ProductDirectory">
+          <End Role="ProductDirectory" Type="Self.ProductDirectory" Multiplicity="1" />
+          <End Role="ProductCompound" Type="Self.ProductCompound" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductDirectory">
+              <PropertyRef Name="ProductCode" />
+            </Principal>
+            <Dependent Role="ProductCompound">
+              <PropertyRef Name="ProductCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReleasePlan_ProductDirectory">
+          <End Role="ProductDirectory" Type="Self.ProductDirectory" Multiplicity="1" />
+          <End Role="ReleasePlan" Type="Self.ReleasePlan" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProductDirectory">
+              <PropertyRef Name="ProductCode" />
+            </Principal>
+            <Dependent Role="ReleasePlan">
+              <PropertyRef Name="ProductCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReleasePlan_Workshop">
+          <End Role="Workshop" Type="Self.Workshop" Multiplicity="0..1" />
+          <End Role="ReleasePlan" Type="Self.ReleasePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workshop">
+              <PropertyRef Name="WorkshopCode" />
+            </Principal>
+            <Dependent Role="ReleasePlan">
+              <PropertyRef Name="WorkshopCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище FactoryModelContainer">
+          <EntitySet Name="DetailDirectory" EntityType="Self.DetailDirectory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCompound" EntityType="Self.ProductCompound" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDirectory" EntityType="Self.ProductDirectory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReleasePlan" EntityType="Self.ReleasePlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Workshop" EntityType="Self.Workshop" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ProductCompound_DetailDirectory" Association="Self.FK_ProductCompound_DetailDirectory">
+            <End Role="DetailDirectory" EntitySet="DetailDirectory" />
+            <End Role="ProductCompound" EntitySet="ProductCompound" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCompound_ProductDirectory" Association="Self.FK_ProductCompound_ProductDirectory">
+            <End Role="ProductDirectory" EntitySet="ProductDirectory" />
+            <End Role="ProductCompound" EntitySet="ProductCompound" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReleasePlan_ProductDirectory" Association="Self.FK_ReleasePlan_ProductDirectory">
+            <End Role="ProductDirectory" EntitySet="ProductDirectory" />
+            <End Role="ReleasePlan" EntitySet="ReleasePlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReleasePlan_Workshop" Association="Self.FK_ReleasePlan_Workshop">
+            <End Role="Workshop" EntitySet="Workshop" />
+            <End Role="ReleasePlan" EntitySet="ReleasePlan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FactoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FactoryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DetailDirectory" EntityType="FactoryModel.DetailDirectory" />
+          <EntitySet Name="ProductCompound" EntityType="FactoryModel.ProductCompound" />
+          <EntitySet Name="ProductDirectory" EntityType="FactoryModel.ProductDirectory" />
+          <EntitySet Name="ReleasePlan" EntityType="FactoryModel.ReleasePlan" />
+          <EntitySet Name="Workshop" EntityType="FactoryModel.Workshop" />
+          <AssociationSet Name="FK_ProductCompound_DetailDirectory" Association="FactoryModel.FK_ProductCompound_DetailDirectory">
+            <End Role="DetailDirectory" EntitySet="DetailDirectory" />
+            <End Role="ProductCompound" EntitySet="ProductCompound" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCompound_ProductDirectory" Association="FactoryModel.FK_ProductCompound_ProductDirectory">
+            <End Role="ProductDirectory" EntitySet="ProductDirectory" />
+            <End Role="ProductCompound" EntitySet="ProductCompound" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReleasePlan_ProductDirectory" Association="FactoryModel.FK_ReleasePlan_ProductDirectory">
+            <End Role="ProductDirectory" EntitySet="ProductDirectory" />
+            <End Role="ReleasePlan" EntitySet="ReleasePlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReleasePlan_Workshop" Association="FactoryModel.FK_ReleasePlan_Workshop">
+            <End Role="Workshop" EntitySet="Workshop" />
+            <End Role="ReleasePlan" EntitySet="ReleasePlan" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DetailDirectory">
+          <Key>
+            <PropertyRef Name="DetailCode" />
+          </Key>
+          <Property Name="DetailCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DetailName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Cost" Type="Int32" />
+          <NavigationProperty Name="ProductCompound" Relationship="FactoryModel.FK_ProductCompound_DetailDirectory" FromRole="DetailDirectory" ToRole="ProductCompound" />
+        </EntityType>
+        <EntityType Name="ProductCompound">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+            <PropertyRef Name="DetailCode" />
+          </Key>
+          <Property Name="ProductCode" Type="Int32" Nullable="false" />
+          <Property Name="DetailCode" Type="Int32" Nullable="false" />
+          <Property Name="DetailCount" Type="Int32" />
+          <NavigationProperty Name="DetailDirectory" Relationship="FactoryModel.FK_ProductCompound_DetailDirectory" FromRole="ProductCompound" ToRole="DetailDirectory" />
+          <NavigationProperty Name="ProductDirectory" Relationship="FactoryModel.FK_ProductCompound_ProductDirectory" FromRole="ProductCompound" ToRole="ProductDirectory" />
+        </EntityType>
+        <EntityType Name="ProductDirectory">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+          </Key>
+          <Property Name="ProductCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MakeCost" Type="Int32" />
+          <NavigationProperty Name="ProductCompound" Relationship="FactoryModel.FK_ProductCompound_ProductDirectory" FromRole="ProductDirectory" ToRole="ProductCompound" />
+          <NavigationProperty Name="ReleasePlan" Relationship="FactoryModel.FK_ReleasePlan_ProductDirectory" FromRole="ProductDirectory" ToRole="ReleasePlan" />
+        </EntityType>
+        <EntityType Name="ReleasePlan">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+          </Key>
+          <Property Name="ProductCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductCount" Type="Int32" />
+          <Property Name="WorkshopCode" Type="Int32" />
+          <NavigationProperty Name="ProductDirectory" Relationship="FactoryModel.FK_ReleasePlan_ProductDirectory" FromRole="ReleasePlan" ToRole="ProductDirectory" />
+          <NavigationProperty Name="Workshop" Relationship="FactoryModel.FK_ReleasePlan_Workshop" FromRole="ReleasePlan" ToRole="Workshop" />
+        </EntityType>
+        <EntityType Name="Workshop">
+          <Key>
+            <PropertyRef Name="WorkshopCode" />
+          </Key>
+          <Property Name="WorkshopCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkshopName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Boss" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ReleasePlan" Relationship="FactoryModel.FK_ReleasePlan_Workshop" FromRole="Workshop" ToRole="ReleasePlan" />
+        </EntityType>
+        <Association Name="FK_ProductCompound_DetailDirectory">
+          <End Type="FactoryModel.DetailDirectory" Role="DetailDirectory" Multiplicity="1" />
+          <End Type="FactoryModel.ProductCompound" Role="ProductCompound" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DetailDirectory">
+              <PropertyRef Name="DetailCode" />
+            </Principal>
+            <Dependent Role="ProductCompound">
+              <PropertyRef Name="DetailCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCompound_ProductDirectory">
+          <End Type="FactoryModel.ProductDirectory" Role="ProductDirectory" Multiplicity="1" />
+          <End Type="FactoryModel.ProductCompound" Role="ProductCompound" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductDirectory">
+              <PropertyRef Name="ProductCode" />
+            </Principal>
+            <Dependent Role="ProductCompound">
+              <PropertyRef Name="ProductCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReleasePlan_ProductDirectory">
+          <End Type="FactoryModel.ProductDirectory" Role="ProductDirectory" Multiplicity="1" />
+          <End Type="FactoryModel.ReleasePlan" Role="ReleasePlan" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProductDirectory">
+              <PropertyRef Name="ProductCode" />
+            </Principal>
+            <Dependent Role="ReleasePlan">
+              <PropertyRef Name="ProductCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReleasePlan_Workshop">
+          <End Type="FactoryModel.Workshop" Role="Workshop" Multiplicity="0..1" />
+          <End Type="FactoryModel.ReleasePlan" Role="ReleasePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workshop">
+              <PropertyRef Name="WorkshopCode" />
+            </Principal>
+            <Dependent Role="ReleasePlan">
+              <PropertyRef Name="WorkshopCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FactoryModelContainer" CdmEntityContainer="FactoryEntities">
+          <EntitySetMapping Name="DetailDirectory">
+            <EntityTypeMapping TypeName="FactoryModel.DetailDirectory">
+              <MappingFragment StoreEntitySet="DetailDirectory">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="DetailName" ColumnName="DetailName" />
+                <ScalarProperty Name="DetailCode" ColumnName="DetailCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCompound">
+            <EntityTypeMapping TypeName="FactoryModel.ProductCompound">
+              <MappingFragment StoreEntitySet="ProductCompound">
+                <ScalarProperty Name="DetailCount" ColumnName="DetailCount" />
+                <ScalarProperty Name="DetailCode" ColumnName="DetailCode" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDirectory">
+            <EntityTypeMapping TypeName="FactoryModel.ProductDirectory">
+              <MappingFragment StoreEntitySet="ProductDirectory">
+                <ScalarProperty Name="MakeCost" ColumnName="MakeCost" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReleasePlan">
+            <EntityTypeMapping TypeName="FactoryModel.ReleasePlan">
+              <MappingFragment StoreEntitySet="ReleasePlan">
+                <ScalarProperty Name="WorkshopCode" ColumnName="WorkshopCode" />
+                <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workshop">
+            <EntityTypeMapping TypeName="FactoryModel.Workshop">
+              <MappingFragment StoreEntitySet="Workshop">
+                <ScalarProperty Name="Boss" ColumnName="Boss" />
+                <ScalarProperty Name="WorkshopName" ColumnName="WorkshopName" />
+                <ScalarProperty Name="WorkshopCode" ColumnName="WorkshopCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

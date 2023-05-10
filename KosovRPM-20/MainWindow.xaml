@@ -1,0 +1,90 @@
+﻿<Window x:Class="KosovRPM_20.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KosovRPM_20"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="DB" 
+                  Grid.ColumnSpan="5"
+                  IsReadOnly="True"
+                  Margin="10,20,10,10"
+                  AutoGenerateColumns="False">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="1*"
+                                    Header="Имя продукта"
+                                    Binding="{Binding ProductDirectory.ProductName}"/>
+
+                <DataGridTextColumn Width="3*"
+                                    Header="Имя детали"
+                                    Binding="{Binding DetailDirectory.DetailName}"/>
+
+                <DataGridTextColumn Width="3*"
+                                    Header="Количество деталей"
+                                    Binding="{Binding DetailCount}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Margin="10"
+                Grid.Row="2"
+                Content="Добавит запись"
+                Click="AddButton"
+                x:Name="AddButtone"/>
+
+        <Button Margin="10"
+                Grid.Row="3"
+                Grid.Column="1"
+                Content="Изменить запись"
+                Click="Edit"
+                x:Name="EditButton"/>
+
+        <Button Margin="10"
+                Grid.Row="2"
+                 Grid.Column="2"
+                Content="Удаление записи"
+                Click="Delete"
+                x:Name="DeleteButton"/>
+
+        <Button  Grid.Row="1"
+                 Grid.Column="3"
+                 Grid.ColumnSpan="2"
+                 Margin="10"
+                 Content="Сбросить"
+                 Click="CancelFiltered"/>
+
+
+        <Menu VerticalAlignment="Top"
+              Grid.ColumnSpan="5">
+            <MenuItem Header="Файл">
+                <MenuItem Header="О программе"
+                          Click="About"/>
+
+                <Separator></Separator>
+
+                <MenuItem Header="Справочники"
+                          Click="Aditins"/>
+                
+                <Separator></Separator>
+
+                <MenuItem Header="Выход"
+                          Click="Exit"/>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</Window>
