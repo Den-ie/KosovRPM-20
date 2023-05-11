@@ -53,7 +53,7 @@ namespace KosovRPM_20
             }
             catch (Exception)
             {
-                MessageBox.Show("Выберите не повторяющуюся комбинацию имен");
+                MessageBox.Show("Ошибка");
             }
         }
 

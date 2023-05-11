@@ -40,6 +40,10 @@ namespace KosovRPM_20
         {
             StringBuilder errors = new StringBuilder();
 
+            if (ComboDetail == null)
+                errors.AppendLine("Укажите название детали");
+            if (ComboProduct == null)
+                errors.AppendLine("Укажите название изделия");
             if (!Int32.TryParse(DetailsCOUNT.Text, out int x))
                 errors.AppendLine("Введите кол-во деталей");
             if (errors.Length > 0)

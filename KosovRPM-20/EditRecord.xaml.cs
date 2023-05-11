@@ -19,14 +19,26 @@ namespace KosovRPM_20
     /// </summary>
     public partial class EditRecord : Window
     {
-        public EditRecord()
+
+        public EditRecord(ProductCompound item)
         {
             InitializeComponent();
+            ComboProduct.SelectedItem= item.ProductCode;
+            ComboDetail.SelectedItem= item.DetailCode;
+            ComboProduct.ItemsSource = db.ProductDirectory.ToList();
+            ComboProduct.DisplayMemberPath = "ProductName";
+            ComboDetail.ItemsSource = db.DetailDirectory.ToList();
+            ComboDetail.DisplayMemberPath = "DetailName";
+            DetailsCOUNT.Text = item.DetailCount.ToString();
+
+            _record = item;
+
             this.Height += 25;
         }
 
         FactoryEntities db = FactoryEntities.GetContext();
-        ProductCompound p1 = new ProductCompound();
+        ProductCompound _record;
+
 
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -34,18 +46,16 @@ namespace KosovRPM_20
             Close();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            p1 = db.ProductCompound.Find(Data.Id);
-            DetailsCountEdit.Text = p1.DetailCount.ToString();
-        }
-
         private void Add(object sender, RoutedEventArgs e)
 
         {
             StringBuilder errors = new StringBuilder();
 
-            if (!Int32.TryParse(DetailsCountEdit.Text, out int x))
+            if (ComboDetail == null)
+                errors.AppendLine("Укажите название детали");
+            if (ComboProduct == null)
+                errors.AppendLine("Укажите название изделия");
+            if (!Int32.TryParse(DetailsCOUNT.Text, out int x))
                 errors.AppendLine("Введите кол-во деталей");
             if (errors.Length > 0)
             {
@@ -53,7 +63,9 @@ namespace KosovRPM_20
                 return;
             }
 
-            p1.DetailCount = x;
+            _record.ProductDirectory = (ProductDirectory)ComboProduct.SelectedItem;
+            _record.DetailDirectory = (DetailDirectory)ComboDetail.SelectedItem;
+            _record.DetailCount = x;
 
             try
             {

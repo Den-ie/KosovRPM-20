@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="59b4d0feded1492d9f6292090c31c704" Name="Diagram1">
-        <EntityTypeShape EntityType="FactoryModel.DetailDirectory" Width="1.5" PointX="11.125" PointY="5.125" />
-        <EntityTypeShape EntityType="FactoryModel.ProductCompound" Width="1.5" PointX="5.375" PointY="4.625" />
-        <EntityTypeShape EntityType="FactoryModel.ProductDirectory" Width="1.5" PointX="0.5" PointY="1.375" />
-        <EntityTypeShape EntityType="FactoryModel.ReleasePlan" Width="1.5" PointX="8.375" PointY="1.25" />
-        <EntityTypeShape EntityType="FactoryModel.Workshop" Width="1.5" PointX="10.875" PointY="1" />
+        <EntityTypeShape EntityType="FactoryModel.DetailDirectory" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="FactoryModel.ProductCompound" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="FactoryModel.ProductDirectory" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FactoryModel.ReleasePlan" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="FactoryModel.Workshop" Width="1.5" PointX="0.75" PointY="7.25" />
         <AssociationConnector Association="FactoryModel.FK_ProductCompound_DetailDirectory" />
         <AssociationConnector Association="FactoryModel.FK_ProductCompound_ProductDirectory" />
         <AssociationConnector Association="FactoryModel.FK_ReleasePlan_ProductDirectory" />

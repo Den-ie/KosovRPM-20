@@ -55,7 +55,7 @@ namespace KosovRPM_20
             {
                 ProductCompound row = (ProductCompound)DB.Items[indexRow];
                 Data.Id = row.ProductCode;
-                EditRecord f = new EditRecord();
+                EditRecord f = new EditRecord(DB.SelectedItem as ProductCompound);
                 f.ShowDialog();
                 DB.Items.Refresh();
                 DB.Focus();
