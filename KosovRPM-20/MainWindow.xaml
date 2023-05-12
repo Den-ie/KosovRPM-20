@@ -84,6 +84,16 @@
 
                 <MenuItem Header="Выход"
                           Click="Exit"/>
+                
+                <Separator></Separator>
+
+                <MenuItem Header="Запрос: Кол-во деталей "
+                          Click="DetailsCountZap"/>
+                
+                <Separator></Separator>
+
+                <MenuItem Header="Запрос: Стоимость изделий"
+                          Click="ProductCostZap"/>
             </MenuItem>
         </Menu>
     </Grid>

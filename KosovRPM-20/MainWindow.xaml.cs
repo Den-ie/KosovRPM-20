@@ -108,5 +108,17 @@ namespace KosovRPM_20
             AdditionalWindow directoryWindow = new AdditionalWindow();
             directoryWindow.ShowDialog();
         }
+
+        private void DetailsCountZap(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void ProductCostZap(object sender, RoutedEventArgs e)
+        {
+            var zap = db.Database.SqlQuery<ProductCompound>("SELECT * FROM ProductCompound").ToList();
+            ZaprosWindow Zapros = new ZaprosWindow(zap);
+            Zapros.Show();
+        }
     }
 }   
